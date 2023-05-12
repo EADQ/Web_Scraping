@@ -13,7 +13,8 @@ worklinks = []
 data = []
 current_date = datetime.now().strftime('%d-%m-%Y')
 
-for x in range(1,200):
+for x in range(1,3):
+    print(f'Fetching page {x}...')  # Nueva línea
     r = requests.get(f'https://www.emprego.pt/en/jobs/costa-rica?page={x}')
     soup = BeautifulSoup(r.content, 'lxml')
     worklist = soup.find_all('h2', class_='h4 media-heading card-title m0 text-ellipsis')
@@ -46,4 +47,6 @@ for link in worklinks:
     results.append(result)  
 
 df = pd.DataFrame(results)
-df.to_csv(f'jobs_{current_date}.csv', index=False)  
+df.to_csv(f'jobs_emprego{current_date}.csv', index=False)  
+
+print('Scraping completed. CSV file saved.')  # Nueva línea
