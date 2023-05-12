@@ -12,7 +12,7 @@ headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
 
 worklinks = []
 
-for x in range(1,6):
+for x in range(1,15):
 #CREAMOS UNA VARIABLE QUE SE LLAMA R Y LE DAMOS EL METODO DE GET CON EL LINK QUE ME DA LA INFORMACION
     r = requests.get(f'https://www.emprego.pt/en/jobs/costa-rica?page={x}')
 #CREANDO LA FUNCION CON EL ANALIZADOR QUE ESTAREMOS UTILIZANDO
@@ -21,8 +21,11 @@ for x in range(1,6):
 # print(worklist)
     for item in worklist:
        for link in item.find_all('a', href=True):
-           worklinks.append(baseurl + link['href'])
+           worklinks.append(link['href'])
 
+
+# for link in worklinks:
+    # print(link)
 
 # testlink = 'https://www.emprego.pt/en/jobs/show/30390139949812550715069081920'
 
@@ -59,9 +62,14 @@ for link in worklinks:
         'description': description
     }
 
-    print(results)
+    # print(results)
+    # print(f"Link: {link}\nCompany: {company}\nJob: {job}\nDescription: {description}\n")
 
-    print(f"Link: {link}\nCompany: {company}\nJob: {job}\nDescription: {description}\n")
+    worklist.append(results)
+    # print('Saving: ', results['company'], results['job'])
 
+
+df = pd.DataFrame()
+print(df.head(15))
 
 
