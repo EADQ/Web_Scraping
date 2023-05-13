@@ -13,9 +13,10 @@ worklinks = []
 data = []
 current_date = datetime.now().strftime('%d-%m-%Y')
 
-for x in range(1,3):
+for x in range(1,200):
     print(f'Fetching page {x}...')  # Nueva línea
-    r = requests.get(f'https://www.emprego.pt/en/jobs/costa-rica?page={x}')
+    r = requests.get(f'https://www.emprego.pt/en/jobs/costa-rica?page={x}') 
+    r.encoding='utf-8'
     soup = BeautifulSoup(r.content, 'lxml')
     worklist = soup.find_all('h2', class_='h4 media-heading card-title m0 text-ellipsis')
     for item in worklist:
